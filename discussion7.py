@@ -5,7 +5,24 @@ import csv
 ###############################################################################
 ##### TASK 1: CSV READER
 ###############################################################################
+
+
 def load_listings(f):
+    base_path = os.path.abspath(os.path.dirname(__file__))
+    full_path = os.path.join(base_path, f)
+
+    listings = []
+
+    with open(full_path, 'r', newline='', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        header = next(reader)  # first row is header
+        
+        for row in reader:
+            # Create dictionary mapping header -> row values
+            listing = dict(zip(header, row))
+            listings.append(listing)
+
+    return listings
     """
     Read the Airbnb listings CSV and return a list of records.
 
