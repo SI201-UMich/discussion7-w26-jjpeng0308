@@ -54,6 +54,29 @@ def load_listings(f):
 ##### TASK 2: CALCULATION FUNCTION (single calculation)
 ###############################################################################
 def calculate_avg_price_by_neighbourhood_group_and_room(listings):
+    totals = {}
+    counts = {}
+
+    for listing in listings:
+        neighbourhood_group = listing['neighbourhood_group']
+        room_type = listing['room_type']
+        
+        # Convert price from string to float
+        price = float(listing['price'])
+        
+        key = (neighbourhood_group, room_type)
+        
+        if key not in totals:
+            totals[key] = 0.0
+            counts[key] = 0
+        
+        totals[key] += price
+        counts[key] += 1
+        averages = {}
+    for key in totals:
+        averages[key] = totals[key] / counts[key]
+
+    return averages
     """
     Calculate the average nightly price for each (neighbourhood_group, room_type) pair.
 
