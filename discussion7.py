@@ -99,6 +99,18 @@ def calculate_avg_price_by_neighbourhood_group_and_room(listings):
 ##### TASK 3: CSV WRITER
 ###############################################################################
 def write_summary_csv(out_filename, avg_prices):
+    with open(out_filename, 'w', newline='', encoding='utf-8') as file:
+        fieldnames = ['neighbourhood_group', 'room_type', 'average_price']
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        
+        writer.writeheader()
+        
+        for (neighbourhood_group, room_type), avg_price in avg_prices.items():
+            writer.writerow({
+                'neighbourhood_group': neighbourhood_group,
+                'room_type': room_type,
+                'average_price': avg_price
+            })
     """
     Write the summary statistics to a CSV file.
 
